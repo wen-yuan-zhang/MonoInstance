@@ -52,7 +52,7 @@
   </div>
   <div class="navbar-menu">
     <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
-      <a class="navbar-item" href="">
+      <a class="navbar-item" href="https://wen-yuan-zhang.github.io/">
       <span class="icon">
           <i class="fas fa-home"></i>
       </span>
@@ -69,6 +69,12 @@
           <a class="navbar-item" href="https://wen-yuan-zhang.github.io/VolumeRenderingPriors/">
             VolumeRenderingPriors
           </a>
+          <a class="navbar-item" href="https://wen-yuan-zhang.github.io/GS-Pull/">
+            GS-Pull
+          </a>
+          <a class="navbar-item" href="https://wen-yuan-zhang.github.io/NeRFPrior/">
+            NeRFPrior
+          </a>
         </div>
       </div>
     </div>
@@ -83,36 +89,39 @@
       <div class="columns is-centered">
         <div class="column has-text-centered">
           <h1 class="title is-1 publication-title">MonoInstance: Enhancing Monocular Priors via Multi-view Instance Alignment for Neural Rendering and Reconstruction</h1>
+          <div class="column is-full_width">
+            <h2 class="title is-4">CVPR 2025</h2>
+          </div>
           <div class="is-size-5 publication-authors">
             <span class="author-block">
               <a href="https://wen-yuan-zhang.github.io/">Wenyuan Zhang</a><sup>1</sup>,</span>
             <span class="author-block">
-              <a href="https://emily-jia.github.io/personal-web/">Emily Yue-ting Jia</a><sup>2</sup>,</span>
+              Yixiao Yang</a><sup>1</sup>,</span>
             <span class="author-block">
-              <a href="https://junshengzhou.github.io/">Junshong Zhou</a><sup>1</sup>,
+              <a href="https://github.com/alvin528">Han Huang</a><sup>1</sup>,
             </span>
             <span class="author-block">
-              <a href="https://mabaorui.github.io/">Baorui Ma</a><sup>3</sup>,
+              <a href="https://github.com/hanl2010">Liang Han</a><sup>1</sup>,
             </span>
             <span class="author-block">
-              Kanle Shi<sup>4</sup>,
+              Kanle Shi<sup>2</sup>,
             </span>
             <span class="author-block">
               <a href="https://yushen-liu.github.io/">Yu-Shen Liu</a><sup>1</sup>,
             </span>
 
             <span class="author-block">
-              <a href="https://h312h.github.io/">Zhizhong Han</a><sup>5</sup>
+              <a href="https://h312h.github.io/">Zhizhong Han</a><sup>3</sup>
             </span>
           </div>
-
+          
           <div class="is-size-5 publication-authors">
             <span class="author-block"><sup>1</sup>School of Software, Tsinghua University,</span>
-            <span class="author-block"><sup>2</sup>University of Southern Californi,</span>
-            <span class="author-block"><sup>3</sup>Beijing Academy of Artificial Intelligence, BAAI</span>
-            <span class="author-block"><sup>4</sup>Kuaishou Technology</span>
-            <span class="author-block"><sup>5</sup>Wayne State University</span>
+            <span class="author-block"><sup>2</sup>Kuaishou Technology</span>
+            <span class="author-block"><sup>3</sup>Wayne State University</span>
           </div>
+
+          
 
           <div class="column has-text-centered">
             <div class="publication-links">
@@ -148,6 +157,52 @@
 </section>
 
 
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3" style="margin-top: -30px">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            Monocular depth priors have been widely adopted by neural rendering in multi-view based tasks such as 3D reconstruction and novel view synthesis. However, due to the inconsistent prediction on each view, how to more effectively leverage monocular cues in a multi-view context remains a challenge. Current methods treat the entire estimated depth map indiscriminately, and use it as ground truth supervision, while ignoring the inherent inaccuracy and cross-view inconsistency in monocular priors. To resolve these issues, we propose MonoInstance, a general approach that explores the uncertainty of monocular depths to provide enhanced geometric priors for neural rendering and reconstruction. Our key insight lies in aligning each segmented instance depths from multiple views within a common 3D space, thereby casting the uncertainty estimation of monocular depths into a density measure within noisy point clouds. For high-uncertainty areas where depth priors are unreliable, we further introduce a constraint term that encourages the projected instances to align with corresponding instance masks on nearby views. MonoInstance is a versatile strategy which can be seamlessly integrated into various multi-view neural rendering frameworks. Our experimental results demonstrate that MonoInstance significantly improves the performance in both reconstruction and novel view synthesis under various benchmarks.
+          </p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+
+    <!-- Method. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3" style="margin-top: -20px">Method</h2>
+        <img src="./resources/method.png" class="center">
+        <div class="content has-text-justified">
+          <p>
+            In this paper, we introduce <b>MonoInstance</b>, which detects uncertainty in 3D according to inconsistent clues from monocular priors on multi-view. 
+            Our method is a general strategy to enhance monocular priors for various multi-view neural rendering and reconstruction frameworks.
+            Based on the uncertainty maps, we introduce novel strategies to reduce the negative impact brought by inconsistent monocular clues and mine more reliable supervision through photometric consistency.
+          </p>
+          <p style="margin-top: 30px">
+            Here is an overview of our method. We take multi-view 3D reconstruction through NeRF based rendering as an example.
+            <strong>(a)</strong> Starting from multi-view consistent instance segmentation and estimated monocular depths, we align the same instance from different viewpoints by back-projecting instance depths into a point cloud. 
+            The monocular inconsistent clues across different views become a measurement of density estimation in neighborhood of each point, leading to uncertainty maps (Section 3.2). 
+            The estimated uncertainty maps are further utilized in <strong>(b)</strong> neural rendering pipeline to guide adaptive depth loss, ray sampling (Section 3.4) and 
+            <strong>(c)</strong> instance mask constraints (Section 3.3).            
+          </p>
+        </div>
+
+      </div>
+    </div>
+    <!--/ Animation. -->
+
+  </div>
+</section>
 
 <section class="section">
   <div class="container is-max-desktop">
@@ -158,22 +213,34 @@
         <h2 class="title is-3 has-text-centered" style="margin-top: -30px">Visualization Results</h2>
 
 
-        <h3 class="title is-4">Comparison on ScanNet Dataset</h3>
+        <h3 class="title is-4">Experiments on Dense-view Reconstruction Task</h3>
         <div class="content has-text-justified">
-          <img src="./resources/scannet1.png" class="center">
-        </div>
-        <div class="content has-text-justified">
+          <img src="./resources/scannet.png" class="center">
           <img src="./resources/scannet2.png" class="center">
+          <p>
+            We compare our method with the latest indoor scene reconstruction methods using dense viewpoints on ScanNet and Replica datasets.
+          </p>
+        
+
+        <h3 class="title is-4">Experiments on Sparse-view Reconstruction Task</h3>
+        </div>
+        <div class="content has-text-justified">
+          <img src="./resources/dtu.png" class="center">
+          <img src="./resources/dtu2.png" class="center">
+          <p>
+            We also evaluate our method in reconstructing 3D shapes from sparse observations on DTU dataset. 
+            Each of the scene shows single object with background from 3 viewpoints with small overlapping. 
+          </p>
         </div>
 
-        <h3 class="title is-4">Comparison on BlendSwap Dataset</h3>
+        <h3 class="title is-4">Experiments on Sparse Novel View Synthesis Task</h3>
         <div class="content has-text-justified">
-          <img src="./resources/blendswap.png" class="center">
-        </div>
-
-        <h3 class="title is-4">Comparison on Replica Dataset</h3>
-        <div class="content has-text-justified">
-          <img src="./resources/replica.png" class="center">
+          <img src="./resources/llff.png" class="center">
+          <img src="./resources/llff2.png" class="center">
+          <p>
+            We further evaluate our method on 3DGS-based sparse-input novel view synthesis (NVS) task on LLFF dataset.  
+            Each on of the forward-facing real-world scenes contains 3 views.
+          </p>
         </div>
 
 
@@ -209,7 +276,18 @@
 
 </section>
 
-
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+     <pre><code>@inproceedings{zhang2025monoinstance,
+      title={MonoInstance: Enhancing Monocular Priors via Multi-view Instance Alignment for Neural Rendering and Reconstruction},
+      author={Wenyuan Zhang and Yixiao Yang and Han Huang and Liang Han and Kanle Shi and Yu-Shen Liu and Zhizhong Han},
+      booktitle={Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition},
+      year={2025}
+  }
+</code></pre>
+  </div>
+</section>
 
 <footer class="footer">
   <div class="container">
