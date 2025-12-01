@@ -1,0 +1,24 @@
+follow他的readme安装segment_anyting, GroundingDINO, ram。此外需要的库：
+litellm
+
+进到GroundingDINO/下面
+pip install -e .
+把ram目录加入到项目下，进到ram/下面
+pip install -e .
+进到segment_anything/下面
+pip install -e .
+把huggingface上的bert-base-uncased文件夹放到huggingface/bert-base-uncased文件夹下，然后修改代码文件：GroundingDINO/groundingdino/utils/get_tokenlizer.py 的两行
+tokenizer = AutoTokenizer.from_pretrained('huggingface/bert-base-uncased')
+return BertModel.from_pretrained('huggingface/bert-base-uncased')
+还有ram/ram/models/utils.py的init_tokenizer中
+tokenizer = BertTokenizer.from_pretrained(text_encoder_type)
+
+最后运行
+CUDA_VISIBLE_DEVICES=7 python automatic_label_ram_demo.py --config GroundingDINO/groundingdino/config/GroundingDINO_SwinT_OGC.py --ram_checkpoint checkpoints/ram_swin_large_14m.pth --grounded_checkpoint checkpoints/groundingdino_swint_ogc.pth --sam_checkpoint checkpoints/sam_vit_h_4b8939.pth --input_image assets/000000_rgb.png --output_dir "outputs" --box_threshold 0.25 --text_threshold 0.2 --iou_threshold 0.5 --device "cuda"
+我们自己的命令：
+CUDA_VISIBLE_DEVICES=7 python automatic_label_ram_ours.py --config GroundingDINO/groundingdino/config/GroundingDINO_SwinT_OGC.py --ram_checkpoint checkpoints/ram_swin_large_14m.pth --grounded_checkpoint checkpoints/groundingdino_swint_ogc.pth --sam_checkpoint checkpoints/sam_vit_h_4b8939.pth  --output_dir "outputs/scan4_all_segments" --box_threshold 0.25 --text_threshold 0.2 --iou_threshold 0.5 --device "cuda"
+使用sam_hq的命令：
+CUDA_VISIBLE_DEVICES=7 python automatic_label_ram_ours.py --config GroundingDINO/groundingdino/config/GroundingDINO_SwinT_OGC.py  --ram_checkpoint checkpoints/ram_swin_large_14m.pth  --grounded_checkpoint checkpoints/groundingdino_swint_ogc.pth --sam_checkpoint checkpoints/sam_vit_h_4b8939.pth --use_sam_hq --sam_hq_checkpoint checkpoints/sam_hq_vit_h.pth  --output_dir "outputs/scan4_all_segments_samhq" --box_threshold 0.25 --text_threshold 0.2 --iou_threshold 0.5 --device "cuda"
+
+在单张图片上运行基于text prompt的grounded sam命令：【SAM-HQ不如SAM效果好】
+CUDA_VISIBLE_DEVICES=4 python grounded_sam_demo.py --config GroundingDINO/groundingdino/config/GroundingDINO_SwinT_OGC.py --grounded_checkpoint checkpoints/groundingdino_swint_ogc.pth --sam_checkpoint checkpoints/sam_vit_h_4b8939.pth --input_image assets/000000.png --output_dir "outputs" --text_prompt "room background"

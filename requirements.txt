@@ -1,0 +1,5 @@
+tqdm
+trimesh
+opencv-python
+Pillow
+matplotlib
